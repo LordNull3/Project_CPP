@@ -29,7 +29,7 @@ bool Vol::ajouter()
    QSqlQuery Q1;
    QString du = QString::number(duree);
    QString cv = QString::number(capacite_vol);
-   Q1.prepare("insert into vol(id_vol,pdd,pda,capacite_vol,duree)" "values(:id_vol, :pdd,:pda,:capacite_vol,:duree)");
+   Q1.prepare("insert into vol(id_vol,pdd,pda,capacite_vol,duree)" "values(:id_vol,:pdd,:pda,:capacite_vol,:duree)");
    Q1.bindValue(":id_vol",id_vol);
    Q1.bindValue(":pdd",pdd);
    Q1.bindValue(":pda",pda);
@@ -43,7 +43,7 @@ bool Vol::supprimer(QString id_vol)
 {
     QSqlQuery Q1;
         Q1.prepare("Delete from Vol where id_vol=:id");
-        Q1.bindValue(0,id_vol);
+        Q1.bindValue(":id",id_vol);
 
     return Q1.exec();
 
@@ -86,6 +86,27 @@ QSqlQueryModel* Vol::afficher()
     return model;
 }
 
+QSqlQueryModel * Vol::tri_vol()
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT id_vol,pdd,pda,capacite_vol,duree FROM vol ORDER BY pdd,pda,duree");
+    model->setHeaderData(0, Qt::Horizontal,QObject::tr("Id_Vol"));
+    model->setHeaderData(1, Qt::Horizontal,QObject::tr("Pdd"));
+    model->setHeaderData(2, Qt::Horizontal,QObject::tr("Pda"));
+    model->setHeaderData(3, Qt::Horizontal,QObject::tr("Capacite_vol"));
+    model->setHeaderData(4, Qt::Horizontal,QObject::tr("Duree"));
+    return model;
+}
 
+QSqlQueryModel * Vol::rechercher(QString nom)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+    QSqlQuery q;
+    q.prepare("select id_vol,pdd,pda,capacite_vol,duree from vol where id_vol like '"+nom+"%' or capacite_vol LIKE '"+nom+"%' or duree like '"+nom+"%' ");
+    q.addBindValue("%"+ nom +"%");
+    q.exec();
+    model->setQuery(q);
+    return (model);
 
+}
 

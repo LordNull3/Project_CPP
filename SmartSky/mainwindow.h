@@ -22,8 +22,14 @@ private slots:
 
     void on_Del_button_clicked();
 
-    void on_Modifier_clicked();
 
+    void on_tri_vol_button_clicked();
+
+    void on_Modifer_button_clicked();
+
+    void on_Afficher_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

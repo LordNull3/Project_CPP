@@ -37,6 +37,10 @@ public:
     QSqlQueryModel * afficher();
     bool supprimer(QString);
     bool modifier(QString);
+
+    QSqlQueryModel * tri_vol();
+    QSqlQueryModel *rechercher(QString nom);
+
 };
 
 #endif // VOL_H
