@@ -25,6 +25,12 @@ public:
      bool supprimer(QString);
      QSqlQueryModel * afficher();
       bool modifier(QString);
+      QSqlQueryModel * rechercherNom(QString );
+      QSqlQueryModel * AfficherTri();
+      QSqlQueryModel * AfficherTriid();
+      QSqlQueryModel *AfficherTrivoy();
+      QSqlQueryModel * AfficherTrivol();
+      QString  apercu_pdf();
 private:
  QString  emplacement ,num_vol , num_voyageur ;
  QString  id_billet,classement,nom ;

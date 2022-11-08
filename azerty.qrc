@@ -6,4 +6,7 @@
         <file>qr-code.png</file>
         <file>qr.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>../../shit/6424.jpg</file>
+    </qresource>
 </RCC>
