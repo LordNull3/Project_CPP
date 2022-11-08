@@ -40,6 +40,7 @@ public:
 
     QSqlQueryModel * tri_vol();
     QSqlQueryModel *rechercher(QString nom);
+    QString  export_pdf();
 
 };
 

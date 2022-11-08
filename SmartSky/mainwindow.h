@@ -31,6 +31,8 @@ private slots:
 
     void on_lineEdit_textChanged(const QString &arg1);
 
+    void on_Pdf_Ex_clicked();
+
 private:
     Ui::MainWindow *ui;
     Vol V;

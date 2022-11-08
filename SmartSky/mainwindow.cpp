@@ -4,6 +4,8 @@
 #include <QApplication>
 #include "vol.h"
 #include "QIntValidator"
+#include <QPrinter>
+#include <QPrintDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -168,4 +170,18 @@ void MainWindow::on_Afficher_clicked()
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
     ui->ShowV->setModel(V.rechercher(arg1));
+}
+
+void MainWindow::on_Pdf_Ex_clicked()
+{
+    Vol V;
+
+                 QString text=V.export_pdf();
+                 ui->PdfLine->setText(text);
+
+                 QPrinter printer ;
+                 printer.setPrinterName("imprim");
+                 QPrintDialog dialog (&printer,this);
+                 if(dialog.exec()==QDialog::Rejected) return ;
+                 ui->PdfLine->print(&printer);
 }

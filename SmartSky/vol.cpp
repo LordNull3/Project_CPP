@@ -110,3 +110,51 @@ QSqlQueryModel * Vol::rechercher(QString nom)
 
 }
 
+
+
+
+QString Vol:: export_pdf()
+ {
+    QString text="          **** Les Vols  ****      \n \n " ;
+     QSqlQuery query ;
+     QString i,x,z,a,b,c,d,h,h1,h2,h3;
+
+
+      query.exec("select id_vol,pdd,pda,capacite_vol,duree from vol ");
+      while (query.next())
+      {
+         i=query.value(0).toString();
+         x=query.value(1).toString();
+         z=query.value(2).toString();
+         a=query.value(3).toString();
+         b=query.value(4).toString();
+
+
+        text += "\n Vol Id : "+i+"\n\n - Pay de depart : "+ x+"\n - Pays d'arriveé : "+ z+"\n - capacite du vol:"+a+"\n - Duree :"+b+"\n" ;
+
+
+     }
+
+
+             return text ;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
