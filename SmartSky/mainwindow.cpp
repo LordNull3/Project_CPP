@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->CvAline->setValidator(new QIntValidator(100,500, this));
     ui->DuAline->setValidator(new QIntValidator(1,72, this));
     ui->ShowV->setModel(V.afficher());
+    ui->LD_Avion->setModel(V.Combo_req());
 }
 
 
@@ -36,8 +37,9 @@ void MainWindow::on_AjouterButton_clicked()
     QString pda=ui->PdaAline->text();
     int capacite_vol=ui->CvAline->text().toInt();
     int duree=ui->DuAline->text().toInt();
+    int id_avion=ui->LD_Avion->currentText().toInt();
 
-    Vol V(id_vol,pdd,pda,capacite_vol,duree);
+    Vol V(id_vol,pdd,pda,capacite_vol,duree,id_avion);
 
     bool test = V.ajouter();
 
@@ -84,12 +86,14 @@ void MainWindow::on_tri_vol_button_clicked()
 void MainWindow::on_Modifer_button_clicked()
 {
     QString id_vol=ui->IdAline->text();
+    int id_avion=ui->LD_Avion->currentText().toInt();
     QString pdd=ui->PddAline->text();
     QString pda=ui->PdaAline->text();
     int capacite_vol=ui->CvAline->text().toInt();
     int duree=ui->DuAline->text().toInt();
 
-     Vol V(id_vol,pdd,pda,capacite_vol,duree);
+
+     Vol V(id_vol,pdd,pda,capacite_vol,duree,id_avion);
     if((id_vol=="")&&(pdd=="")&&(pda=="")&&(capacite_vol==0)&&(duree==0))
        {
            QMessageBox::critical(nullptr, QObject::tr("Erreur"),
@@ -135,6 +139,7 @@ void MainWindow::on_Modifer_button_clicked()
                              QObject::tr("Vol modifié.\n"), QMessageBox::Cancel);
 
                  ui->IdAline->setText("");
+                 ui->LD_Avion->currentText();
                  ui->PddAline->setText("");
                  ui->PdaAline->setText("");
                  ui->CvAline->setText("");
@@ -156,14 +161,17 @@ void MainWindow::on_Afficher_clicked()
     QModelIndex index = ui->ShowV->currentIndex();
          QString id_vol = index.data(Qt::DisplayRole).toString();
          ui->IdAline->setText(id_vol);
-          QString pdd = ui->ShowV->model()->index(index.row(), 1).data(Qt::DisplayRole).toString();
+         QString id_avion = ui->ShowV->model()->index(index.row(), 1).data(Qt::DisplayRole).toString();
+         ui->LD_Avion->currentText();
+          QString pdd = ui->ShowV->model()->index(index.row(), 2).data(Qt::DisplayRole).toString();
           ui->PddAline->setText(pdd);
-           QString pda = ui->ShowV->model()->index(index.row(), 2).data(Qt::DisplayRole).toString();
+           QString pda = ui->ShowV->model()->index(index.row(), 3).data(Qt::DisplayRole).toString();
              ui->PdaAline->setText(pda);
-            QString Capacite_vol = ui->ShowV->model()->index(index.row(), 3).data(Qt::DisplayRole).toString();
+            QString Capacite_vol = ui->ShowV->model()->index(index.row(), 4).data(Qt::DisplayRole).toString();
              ui->CvAline->setText(Capacite_vol);
-             QString Duree = ui->ShowV->model()->index(index.row(), 4).data(Qt::DisplayRole).toString();
+             QString Duree = ui->ShowV->model()->index(index.row(), 5).data(Qt::DisplayRole).toString();
              ui->DuAline->setText(Duree);
+
 
 }
 

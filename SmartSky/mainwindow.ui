@@ -754,7 +754,7 @@ border-radius:10px;
         <widget class="QTableView" name="ShowV">
          <property name="geometry">
           <rect>
-           <x>580</x>
+           <x>600</x>
            <y>10</y>
            <width>631</width>
            <height>191</height>
@@ -826,7 +826,7 @@ border-radius:10px;
 }</string>
          </property>
          <property name="text">
-          <string>Afficher</string>
+          <string>Charger</string>
          </property>
         </widget>
        </widget>

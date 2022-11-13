@@ -107,6 +107,12 @@ QSqlQueryModel * Vol::tri_vol()
     return model;
 }
 
+
+
+
+
+
+
 QSqlQueryModel * Vol::rechercher(QString nom)
 {
     QSqlQueryModel *model= new QSqlQueryModel();
