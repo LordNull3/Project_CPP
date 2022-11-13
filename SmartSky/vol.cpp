@@ -94,10 +94,10 @@ QSqlQueryModel* Vol::afficher()
     return model;
 }
 
-QSqlQueryModel * Vol::tri_vol()
+QSqlQueryModel * Vol::tri()
 {
     QSqlQueryModel * model = new QSqlQueryModel();
-    model->setQuery("SELECT id_vol, id_avion,pdd,pda,capacite_vol,duree, FROM vol ORDER BY pdd,pda,duree");
+    model->setQuery("SELECT id_vol, id_avion,pdd,pda,capacite_vol,duree FROM vol ORDER BY pdd,pda,duree");
     model->setHeaderData(0, Qt::Horizontal,QObject::tr("Id_Vol"));
     model->setHeaderData(1, Qt::Horizontal,QObject::tr("Id_avion"));
     model->setHeaderData(2, Qt::Horizontal,QObject::tr("Pdd"));
@@ -106,6 +106,49 @@ QSqlQueryModel * Vol::tri_vol()
     model->setHeaderData(5, Qt::Horizontal,QObject::tr("Duree"));
     return model;
 }
+
+QSqlQueryModel * Vol::Tri_pdd()
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT id_vol, id_avion,pdd,pda,capacite_vol,duree FROM vol ORDER BY pdd");
+    model->setHeaderData(0, Qt::Horizontal,QObject::tr("Id_Vol"));
+    model->setHeaderData(1, Qt::Horizontal,QObject::tr("Id_avion"));
+    model->setHeaderData(2, Qt::Horizontal,QObject::tr("Pdd"));
+    model->setHeaderData(3, Qt::Horizontal,QObject::tr("Pda"));
+    model->setHeaderData(4, Qt::Horizontal,QObject::tr("Capacite_vol"));
+    model->setHeaderData(5, Qt::Horizontal,QObject::tr("Duree"));
+    return model;
+}
+
+QSqlQueryModel * Vol::Tri_pda()
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT id_vol, id_avion,pdd,pda,capacite_vol,duree FROM vol ORDER BY pda");
+    model->setHeaderData(0, Qt::Horizontal,QObject::tr("Id_Vol"));
+    model->setHeaderData(1, Qt::Horizontal,QObject::tr("Id_avion"));
+    model->setHeaderData(2, Qt::Horizontal,QObject::tr("Pdd"));
+    model->setHeaderData(3, Qt::Horizontal,QObject::tr("Pda"));
+    model->setHeaderData(4, Qt::Horizontal,QObject::tr("Capacite_vol"));
+    model->setHeaderData(5, Qt::Horizontal,QObject::tr("Duree"));
+    return model;
+}
+
+QSqlQueryModel * Vol::Tri_duree()
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT id_vol, id_avion,pdd,pda,capacite_vol,duree FROM vol ORDER BY duree");
+    model->setHeaderData(0, Qt::Horizontal,QObject::tr("Id_Vol"));
+    model->setHeaderData(1, Qt::Horizontal,QObject::tr("Id_avion"));
+    model->setHeaderData(2, Qt::Horizontal,QObject::tr("Pdd"));
+    model->setHeaderData(3, Qt::Horizontal,QObject::tr("Pda"));
+    model->setHeaderData(4, Qt::Horizontal,QObject::tr("Capacite_vol"));
+    model->setHeaderData(5, Qt::Horizontal,QObject::tr("Duree"));
+    return model;
+}
+
+
+
+
 
 QSqlQueryModel * Vol::rechercher(QString nom)
 {
@@ -153,7 +196,7 @@ QString Vol:: export_pdf()
 
 QSqlQueryModel * Vol:: Combo_req(){
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select ID_AVION from AVIOn ");
+    model->setQuery("select ID_AVION from AVION ");
 
 
     return  model ;

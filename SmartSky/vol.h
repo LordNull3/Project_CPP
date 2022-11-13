@@ -40,7 +40,10 @@ public:
     bool supprimer(QString);
     bool modifier(QString);
 
-    QSqlQueryModel * tri_vol();
+    QSqlQueryModel * tri();
+    QSqlQueryModel * Tri_pdd();
+    QSqlQueryModel * Tri_pda();
+    QSqlQueryModel * Tri_duree();
     QSqlQueryModel *rechercher(QString nom);
     QString  export_pdf();
     QSqlQueryModel * Combo_req();

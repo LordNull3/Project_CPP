@@ -80,7 +80,18 @@ void MainWindow::on_Del_button_clicked()
 
 void MainWindow::on_tri_vol_button_clicked()
 {
-    ui->ShowV->setModel(V.tri_vol());
+    QString triV=ui->Tri_CB->currentText();
+    if(triV=="Id_vol"){
+      ui->ShowV->setModel(V.tri());}
+    else if(triV=="Pays de depart"){
+       ui->ShowV->setModel(V.Tri_pdd());
+    }
+    else if(triV=="Pays d'arrivée"){
+       ui->ShowV->setModel(V.Tri_pda());
+    }
+    else if(triV=="Durée"){
+       ui->ShowV->setModel(V.Tri_duree());
+    }
 }
 
 void MainWindow::on_Modifer_button_clicked()
