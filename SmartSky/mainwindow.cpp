@@ -6,6 +6,14 @@
 #include "QIntValidator"
 #include <QPrinter>
 #include <QPrintDialog>
+#include "stats.h"
+#include "exportexcelobject.h"
+#include <QFileDialog>
+#include "webaxwidget.h"
+#include <QSettings>
+#include <QObject>
+#include <QtDebug>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->DuAline->setValidator(new QIntValidator(1,72, this));
     ui->ShowV->setModel(V.afficher());
     ui->LD_Avion->setModel(V.Combo_req());
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
+                       QCoreApplication::organizationName(), QCoreApplication::applicationName());
+
+    ui->WebBrowser->dynamicCall("Navigate(const QString&)", "https://www.google.com/maps/place/ESPRIT/@36.9016729,10.1713215,15z");
 }
 
 
@@ -193,14 +205,94 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 
 void MainWindow::on_Pdf_Ex_clicked()
 {
-    Vol V;
+    QString strStream;
+                            QTextStream out(&strStream);
 
-                 QString text=V.export_pdf();
-                 ui->PdfLine->setText(text);
+                            const int rowCount = ui->ShowV->model()->rowCount();
+                            const int columnCount = ui->ShowV->model()->columnCount();
 
-                 QPrinter printer ;
-                 printer.setPrinterName("imprim");
-                 QPrintDialog dialog (&printer,this);
-                 if(dialog.exec()==QDialog::Rejected) return ;
-                 ui->PdfLine->print(&printer);
+                            out <<  "<html>\n"
+                                "<head>\n"
+                                "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                                <<  QString("<title>%1</title>\n").arg("strTitle")
+                                <<  "</head>\n"
+                                "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                               //     "<align='right'> " << datefich << "</align>"
+                                 "<center> <H1> SmartSky \n \n\n\n</H1><H2>Liste des vols \n \n\n\n</H2><H3> \n \n\n\n</H3></br></br><table border=1 cellspacing=3 cellpadding=2>\n";
+
+
+                            // headers
+                            out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                            for (int column = 0; column < columnCount; column++)
+                                if (!ui->ShowV->isColumnHidden(column))
+                                    out << QString("<th>%1</th>").arg(ui->ShowV->model()->headerData(column, Qt::Horizontal).toString());
+                            out << "</tr></thead>\n";
+
+                            // data table
+                            for (int row = 0; row < rowCount; row++) {
+                                out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                                for (int column = 0; column < columnCount; column++) {
+                                    if (!ui->ShowV->isColumnHidden(column)) {
+                                        QString data = ui->ShowV->model()->data(ui->ShowV->model()->index(row, column)).toString().simplified();
+                                        out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                                    }
+                                }
+                                out << "</tr>\n";
+                            }
+                            out <<  "</table> </center>\n"
+                                "</body>\n"
+                                "</html>\n";
+
+                      QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                        if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                       QPrinter printer (QPrinter::PrinterResolution);
+                        printer.setOutputFormat(QPrinter::PdfFormat);
+                       printer.setPaperSize(QPrinter::A4);
+                      printer.setOutputFileName(fileName);
+
+                       QTextDocument doc;
+                        doc.setHtml(strStream);
+                        doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                        doc.print(&printer);
+}
+
+void MainWindow::on_Stats_Button_clicked()
+{
+    s = new stats();
+
+  s->setWindowTitle("Stats");
+  s->Stats_bar();
+  s->show();
+
+}
+
+
+
+void MainWindow::on_Excel_Button_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Excel file"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+    if (fileName.isEmpty())
+        return;
+
+    ExportExcelObject obj(fileName, "mydata", ui->ShowV);
+
+    //colums to export
+    obj.addField(0, "ID_VOL", "char(20)");
+    obj.addField(1, "ID_AVION", "NUMBER");
+    obj.addField(2, "PDD", "char(20)");
+    obj.addField(3, "PDA", "char(20)");
+    obj.addField(4, "CAPACITE_VOL", "NUMBER");
+    obj.addField(5, "DUREE", "NUMBER");
+
+
+    int retVal = obj.export2Excel();
+    if( retVal > 0)
+    {
+        QMessageBox::information(this, tr("Done"),
+                                 QString(tr("%1 records exported!")).arg(retVal)
+                                 );
+    }
 }

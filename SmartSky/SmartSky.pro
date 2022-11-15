@@ -1,6 +1,4 @@
-QT       += core gui sql
-QT += printsupport
-
+QT       += core gui sql network multimedia multimediawidgets charts printsupport widgets axcontainer
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -18,17 +16,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connection.cpp \
+    exportexcelobject.cpp \
     main.cpp \
     mainwindow.cpp \
+    stats.cpp \
     vol.cpp
 
 HEADERS += \
     connection.h \
+    exportexcelobject.h \
     mainwindow.h \
-    vol.h
+    stats.h \
+    vol.h \
+    webaxwidget.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    stats.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

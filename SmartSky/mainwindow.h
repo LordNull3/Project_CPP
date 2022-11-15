@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "vol.h"
+#include "stats.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,8 +34,13 @@ private slots:
 
     void on_Pdf_Ex_clicked();
 
+    void on_Stats_Button_clicked();
+
+    void on_Excel_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
     Vol V;
+    stats *s;
 };
 #endif // MAINWINDOW_H

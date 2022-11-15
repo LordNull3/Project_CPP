@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1311</width>
-    <height>654</height>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -260,6 +260,9 @@ QTabBar::tab:selected{background-color: rgb(7, 202, 255); color: white;}
        </property>
        <property name="documentMode">
         <bool>true</bool>
+       </property>
+       <property name="tabBarAutoHide">
+        <bool>false</bool>
        </property>
        <widget class="QWidget" name="MainFunctions">
         <property name="autoFillBackground">
@@ -584,7 +587,7 @@ border-radius: 40px;
           <property name="geometry">
            <rect>
             <x>80</x>
-            <y>160</y>
+            <y>140</y>
             <width>141</width>
             <height>31</height>
            </rect>
@@ -612,40 +615,6 @@ border-radius:10px;
           </property>
           <property name="text">
            <string>Exporter en pdf</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="Excel_EX">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>120</y>
-            <width>141</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">#Excel_EX{
-background-color: rgb(0, 203, 0);
-border-width: 1px;
-border-color: none;
-border-style: solid;
-border-radius: 10px;
-}
-QPushButton:hover {
-	background-color: rgb(255, 140, 0);
-font: 75 9pt &quot;Comic Sans MS&quot;;
-color: rgb(0, 0, 0);
-border-radius:10px;
-}
-QPushButton:pressed {
-	background-color: rgb(255, 179, 0);
-font: 75 9pt &quot;Comic Sans MS&quot;;
-color: rgb(0, 0, 0);
-border-radius:10px;
-}</string>
-          </property>
-          <property name="text">
-           <string>Exporter en excel</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit">
@@ -764,6 +733,74 @@ background-color : white;</string>
            </property>
           </item>
          </widget>
+         <widget class="QPushButton" name="Stats_Button">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>180</y>
+            <width>141</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#Stats_Button{
+background-color: rgb(0, 203, 0);
+border-width: 1px;
+border-color: none;
+border-style: solid;
+border-radius: 10px;
+}
+QPushButton:hover {
+	background-color: rgb(255, 140, 0);
+font: 75 9pt &quot;Comic Sans MS&quot;;
+color: rgb(0, 0, 0);
+border-radius:10px;
+}
+QPushButton:pressed {
+	background-color: rgb(255, 179, 0);
+font: 75 9pt &quot;Comic Sans MS&quot;;
+color: rgb(0, 0, 0);
+border-radius:10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>Stats</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Excel_Button">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>100</y>
+            <width>141</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#Excel_Button{
+background-color: rgb(0, 203, 0);
+border-width: 1px;
+border-color: none;
+border-style: solid;
+border-radius: 10px;
+}
+QPushButton:hover {
+	background-color: rgb(255, 140, 0);
+font: 75 9pt &quot;Comic Sans MS&quot;;
+color: rgb(0, 0, 0);
+border-radius:10px;
+}
+QPushButton:pressed {
+	background-color: rgb(255, 179, 0);
+font: 75 9pt &quot;Comic Sans MS&quot;;
+color: rgb(0, 0, 0);
+border-radius:10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>Exporter en excel</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QLabel" name="label_11">
          <property name="enabled">
@@ -866,36 +903,6 @@ border-radius:10px;
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="SecondaryTab">
-        <property name="styleSheet">
-         <string notr="true">#SecondaryTab{
-border : 4px solid rgb(7, 202, 255);
-border-radius: 40px;
-}</string>
-        </property>
-        <attribute name="title">
-         <string>Statistiques</string>
-        </attribute>
-        <widget class="QLabel" name="label_12">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>20</y>
-           <width>761</width>
-           <height>401</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>../../../../../Downloads/Vols.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </widget>
        <widget class="QWidget" name="Map">
         <property name="styleSheet">
          <string notr="true">#Map{
@@ -907,23 +914,20 @@ border-radius: 40px;
         <attribute name="title">
          <string>l'itinéraire de vol</string>
         </attribute>
-        <widget class="QLabel" name="label_18">
-         <property name="geometry">
+        <widget class="WebAxWidget" name="WebBrowser">
+         <property name="control" stdset="0">
+          <string>{8856F961-340A-11D0-A96B-00C04FD705A2}</string>
+         </property>
+         <property name="focusPolicy" stdset="0">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="geometry" stdset="0">
           <rect>
            <x>20</x>
            <y>20</y>
-           <width>1201</width>
+           <width>1211</width>
            <height>391</height>
           </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>../../../../2-RadarBox24.jpg</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
          </property>
         </widget>
        </widget>
@@ -944,6 +948,18 @@ border-radius: 40px;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QAxWidget</class>
+   <extends>QWidget</extends>
+   <header>qaxwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>WebAxWidget</class>
+   <extends>QAxWidget</extends>
+   <header>webaxwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
