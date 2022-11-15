@@ -2,8 +2,12 @@ QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 QT+=printsupport
+QT+=network
 
+QT       += core gui sql network multimedia charts serialport
 
+QT       += core gui sql multimedia multimediawidgets charts
+QT +=charts
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -19,12 +23,16 @@ SOURCES += \
     billet.cpp \
     connection.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    qrcodegen.cpp \
+    smtp.cpp
 
 HEADERS += \
     billet.h \
     connection.h \
-    mainwindow.h
+    mainwindow.h \
+    qrcodegen.h \
+    smtp.h
 
 FORMS += \
     mainwindow.ui

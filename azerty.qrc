@@ -5,8 +5,10 @@
         <file>lh.jpg</file>
         <file>qr-code.png</file>
         <file>qr.png</file>
+        <file>unknown.png</file>
     </qresource>
     <qresource prefix="/">
         <file>../../shit/6424.jpg</file>
     </qresource>
+    <qresource prefix="/aaa"/>
 </RCC>

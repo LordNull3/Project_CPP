@@ -73,6 +73,13 @@ QSqlQueryModel * Billet:: afficher(){
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("NUM_VOYAGEUR"));
     return  model ;
 }
+QSqlQueryModel * Billet:: afficher_2(){
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select ID_VOL from VOL ");
+
+
+    return  model ;
+}
 bool Billet::modifier(QString id_billet)
 {
     QSqlQuery Q1;
@@ -169,3 +176,69 @@ QString Billet:: apercu_pdf()
 
              return text ;
  }
+
+
+QChart * Billet ::stat(){
+QSqlQuery q,q1,q2,q3,q4,q5;
+   q.exec("Select * from billet");
+   int tot=0;
+   while (q.next())
+       tot++;
+  qDebug() << "total =" << tot;
+   q1.prepare("Select * from billet where classement = :nom ");
+   q1.bindValue(":nom","premiere classe");
+   q1.exec();
+
+   int tot_don=0;
+   while (q1.next())
+       tot_don++;
+qDebug() << "pourcentage don =" << tot_don;
+   qreal pour_Vetments=(tot_don*100)/tot;
+
+   q2.prepare("Select *from billet where classement = :nom  ");
+   q2.bindValue(":nom","classe affaires");
+   q2.exec();
+   int tot_event=0;
+   while (q2.next())
+       tot_event++;
+
+   qreal pour_Voiture=(tot_event*100)/tot;
+
+   q3.prepare("Select * from billet where classement = :nom  ");
+   q3.bindValue(":nom","classe eco");
+   q3.exec();
+   int tot_dep=0;
+   while (q3.next())
+       tot_dep++;
+   qreal pour_supermarche=(tot_dep*100)/tot;
+
+
+
+   QPieSeries *series = new QPieSeries();
+    series->append("premiere classe",pour_Vetments);
+    series->append("classe affaires",pour_Voiture);
+    series->append("classe eco",pour_supermarche);
+
+    QPieSlice *slice0= series->slices().at(0);
+    slice0->setLabelVisible();
+    QPieSlice *slice1 = series->slices().at(1);
+
+    slice1->setBrush(Qt::green);
+
+    QPieSlice *slice2= series->slices().at(2);
+    slice2->setLabelVisible();
+     slice2->setBrush(Qt::red);
+
+    QChart *chart = new QChart();
+
+    chart->addSeries(series);
+
+    chart->setTitle("classement des billet");
+    chart->legend()->hide();
+    series->setLabelsVisible();
+   for(auto slice : series->slices())
+    slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1));
+ chart->setBackgroundBrush(Qt::transparent);
+
+   return chart;
+}

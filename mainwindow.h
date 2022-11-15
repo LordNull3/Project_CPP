@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QPrinter>
 #include<QPrintDialog>
+#include <QTextStream>
+#include <QFile>
+#include <QDataStream>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -33,8 +36,19 @@ private slots:
 
     void on_modifier_2_clicked();
 
+    void sendMail();
+    void mailSent(QString);
+    void browse();
+
+    void on_pushButton_5_clicked();
+
+   // void on_pushButton_clicked();
+
+
+
 private:
     Ui::MainWindow *ui;
+      QStringList files;
     Billet bi;
 };
 #endif // MAINWINDOW_H

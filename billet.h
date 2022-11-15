@@ -3,6 +3,7 @@
 #include<QString>
 #include<QSqlQueryModel>
 #include<QSqlQuery>
+#include <QtCharts>
 class Billet
 {
 public:
@@ -31,6 +32,8 @@ public:
       QSqlQueryModel *AfficherTrivoy();
       QSqlQueryModel * AfficherTrivol();
       QString  apercu_pdf();
+      QSqlQueryModel * afficher_2();
+      QChart *stat();
 private:
  QString  emplacement ,num_vol , num_voyageur ;
  QString  id_billet,classement,nom ;

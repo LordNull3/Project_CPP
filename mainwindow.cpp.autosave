@@ -15,8 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 ui->tableView->setModel(bi.afficher());
-ui->nom->setValidator(new QRegExpValidator(  QRegExp("[A-z]")  ));
+
 ui->comboBox_2->setModel(bi.afficher_2());
+QRegularExpression r1("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",QRegularExpression::CaseInsensitiveOption);
+
+    ui->nom->setValidator(new QRegularExpressionValidator(r1, this));
 QChart *chart = new QChart();
      chart=bi.stat();
     QChartView *chartview = new QChartView(chart,ui->widget);
