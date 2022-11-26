@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/new/prefix1"/>
-    <qresource prefix="/">
-        <file>airport-terminal.jpg</file>
-        <file>plane-passing-by-sun-cloudy-day.jpg</file>
-        <file>airport-terminal1.jpg</file>
-        <file>asian-airport.jpg</file>
-    </qresource>
-</RCC>
