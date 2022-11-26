@@ -242,7 +242,7 @@ border-radius : 40px;
          <x>20</x>
          <y>60</y>
          <width>1251</width>
-         <height>451</height>
+         <height>461</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -284,7 +284,7 @@ border-radius: 40px;
            <x>10</x>
            <y>10</y>
            <width>421</width>
-           <height>411</height>
+           <height>421</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -665,8 +665,8 @@ background-color : white;</string>
          <widget class="QPushButton" name="tri_vol_button">
           <property name="geometry">
            <rect>
-            <x>60</x>
-            <y>20</y>
+            <x>90</x>
+            <y>0</y>
             <width>101</width>
             <height>31</height>
            </rect>
@@ -700,8 +700,8 @@ border-radius:10px;
          <widget class="QComboBox" name="Tri_CB">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>60</y>
+            <x>50</x>
+            <y>40</y>
             <width>191</width>
             <height>31</height>
            </rect>
@@ -771,7 +771,7 @@ border-radius:10px;
           <property name="geometry">
            <rect>
             <x>80</x>
-            <y>100</y>
+            <y>70</y>
             <width>141</width>
             <height>31</height>
            </rect>
@@ -801,6 +801,22 @@ border-radius:10px;
            <string>Exporter en excel</string>
           </property>
          </widget>
+         <widget class="QComboBox" name="Excel_combo">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>110</y>
+            <width>191</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border : 2px solid #363525;
+border-style: solid;
+border-radius: 8px;
+background-color : white;</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QLabel" name="label_11">
          <property name="enabled">
@@ -809,7 +825,7 @@ border-radius:10px;
          <property name="geometry">
           <rect>
            <x>440</x>
-           <y>110</y>
+           <y>90</y>
            <width>131</width>
            <height>121</height>
           </rect>
@@ -932,6 +948,18 @@ border-radius: 40px;
         </widget>
        </widget>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QTableView" name="Secret_Aff">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>90</y>
+        <width>891</width>
+        <height>341</height>
+       </rect>
+      </property>
      </widget>
     </widget>
    </widget>
