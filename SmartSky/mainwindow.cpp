@@ -20,14 +20,21 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->CvAline->setValidator(new QIntValidator(100,500, this));
+    ui->CvAline->setValidator(new QIntValidator(10,500, this));
     ui->DuAline->setValidator(new QIntValidator(1,72, this));
     ui->ShowV->setModel(V.afficher());
     ui->LD_Avion->setModel(V.Combo_req());
+    ui->Excel_combo->setModel(V.Combo_req());
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                        QCoreApplication::organizationName(), QCoreApplication::applicationName());
 
     ui->WebBrowser->dynamicCall("Navigate(const QString&)", "https://www.google.com/maps/place/ESPRIT/@36.9016729,10.1713215,15z");
+    QRegularExpression r1("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",QRegularExpression::CaseInsensitiveOption);
+
+        ui->PddAline->setValidator(new QRegularExpressionValidator(r1, this));
+        ui->PdaAline->setValidator(new QRegularExpressionValidator(r1, this));
+
+
 }
 
 
@@ -272,6 +279,9 @@ void MainWindow::on_Stats_Button_clicked()
 
 void MainWindow::on_Excel_Button_clicked()
 {
+
+
+
     QString fileName = QFileDialog::getSaveFileName(this, tr("Excel file"), qApp->applicationDirPath (),
                                                     tr("Excel Files (*.xls)"));
     if (fileName.isEmpty())
@@ -296,3 +306,5 @@ void MainWindow::on_Excel_Button_clicked()
                                  );
     }
 }
+
+

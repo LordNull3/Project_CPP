@@ -48,6 +48,7 @@ public:
     QString  export_pdf();
     QSqlQueryModel * Combo_req();
 
+
 };
 
 #endif // VOL_H
