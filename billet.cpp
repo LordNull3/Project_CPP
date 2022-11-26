@@ -11,15 +11,17 @@ emplacement="";
 num_vol="";
 num_voyageur="";
 nom="";
+mail="";
 }
 
-Billet::Billet (QString id_billet,QString classement,QString emplacemet,QString num_vol,QString num_voyageur,QString nom){
+Billet::Billet (QString id_billet,QString classement,QString emplacemet,QString num_vol,QString num_voyageur,QString nom,QString mail){
    this->id_billet=id_billet;
     this->classement=classement;
     this->num_voyageur=num_voyageur;
     this->num_vol=num_vol;
     this->emplacement=emplacemet;
     this->nom=nom;
+    this->mail=mail;
 }
 
 QString Billet:: getid_billet(){return id_billet;}
@@ -33,14 +35,16 @@ void Billet::setnum_vol(QString num_vol){this->num_vol = num_vol;}
 void Billet::setclassement(QString classement){this->classement=classement; }
 void Billet:: setnom(QString nom){this->nom=nom;}
 void Billet:: setnum_voyageur(QString num_voyageur){this->num_voyageur=num_voyageur;}
+QString Billet ::getmail(){return mail;}
+void Billet::setmail(QString id_billet){this->mail=mail;}
 
 
 bool Billet::ajouter(){
 
 QSqlQuery query;
 
-query.prepare("insert into billet (nom, emplacement, classement,id_billet,num_vol,num_voyageur) "
-                        "VALUES (:surname, :emplacement, :classement,:id_billet,:num_vol,:num_voyageur)");
+query.prepare("insert into billet (nom, emplacement, classement,id_billet,num_vol,num_voyageur,mail) "
+                        "VALUES (:surname, :emplacement, :classement,:id_billet,:num_vol,:num_voyageur,:mail)");
           query.bindValue(":id_billet", id_billet);
           query.bindValue(":classement",classement);
           query.bindValue(":emplacement", emplacement);
@@ -48,6 +52,7 @@ query.prepare("insert into billet (nom, emplacement, classement,id_billet,num_vo
 
 query.bindValue(":num_voyageur",num_voyageur);
           query.bindValue(":surname",nom);
+           query.bindValue(":mail",mail);
 
 
 
@@ -71,6 +76,7 @@ QSqlQueryModel * Billet:: afficher(){
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("ID_VOL"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("EMPLACEMENT"));
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("NUM_VOYAGEUR"));
+     model->setHeaderData(6,Qt::Horizontal,QObject::tr("mail"));
     return  model ;
 }
 QSqlQueryModel * Billet:: afficher_2(){
@@ -84,7 +90,7 @@ bool Billet::modifier(QString id_billet)
 {
     QSqlQuery Q1;
 
-    Q1.prepare("update billet set  nom=:nom,emplacement=:emplacement,classement=:classement , num_vol=:num_vol , num_voyageur=:num_voyageur WHERE id_billet=:id_billet");
+    Q1.prepare("update billet set  nom=:nom,emplacement=:emplacement,classement=:classement , num_vol=:num_vol , num_voyageur=:num_voyageur,mail=:mail WHERE id_billet=:id_billet");
 
     Q1.bindValue(":id_billet",id_billet);
 
@@ -97,6 +103,7 @@ bool Billet::modifier(QString id_billet)
         Q1.bindValue(":num_vol",num_vol);
         Q1.bindValue(":num_voyageur",num_voyageur);
         Q1.bindValue(":nom",nom);
+          Q1.bindValue(":mail",mail);
 
     return Q1.exec();
 
@@ -123,6 +130,7 @@ QSqlQueryModel * Billet::AfficherTri()
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("ID_VOL"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("EMPLACEMENT"));
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("NUM_VOYAGEUR"));
+     model->setHeaderData(6,Qt::Horizontal,QObject::tr("mail"));
     return model;
 }
 
@@ -193,7 +201,7 @@ QSqlQuery q,q1,q2,q3,q4,q5;
    while (q1.next())
        tot_don++;
 qDebug() << "pourcentage don =" << tot_don;
-   qreal pour_Vetments=(tot_don*100)/tot;
+   qreal pour_1=(tot_don*100)/tot;
 
    q2.prepare("Select *from billet where classement = :nom  ");
    q2.bindValue(":nom","classe affaires");
@@ -202,7 +210,7 @@ qDebug() << "pourcentage don =" << tot_don;
    while (q2.next())
        tot_event++;
 
-   qreal pour_Voiture=(tot_event*100)/tot;
+   qreal pour_2=(tot_event*100)/tot;
 
    q3.prepare("Select * from billet where classement = :nom  ");
    q3.bindValue(":nom","classe eco");
@@ -210,14 +218,14 @@ qDebug() << "pourcentage don =" << tot_don;
    int tot_dep=0;
    while (q3.next())
        tot_dep++;
-   qreal pour_supermarche=(tot_dep*100)/tot;
+   qreal pour_3=(tot_dep*100)/tot;
 
 
 
    QPieSeries *series = new QPieSeries();
-    series->append("premiere classe",pour_Vetments);
-    series->append("classe affaires",pour_Voiture);
-    series->append("classe eco",pour_supermarche);
+    series->append("premiere classe",pour_1);
+    series->append("classe affaires",pour_2);
+    series->append("classe eco",pour_3);
 
     QPieSlice *slice0= series->slices().at(0);
     slice0->setLabelVisible();
@@ -238,7 +246,7 @@ qDebug() << "pourcentage don =" << tot_don;
     series->setLabelsVisible();
    for(auto slice : series->slices())
     slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1));
- chart->setBackgroundBrush(Qt::transparent);
+ //chart->setBackgroundBrush(Qt::transparent);
 
    return chart;
 }

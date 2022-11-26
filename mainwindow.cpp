@@ -15,8 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 ui->tableView->setModel(bi.afficher());
-ui->nom->setValidator(new QRegExpValidator(  QRegExp("[A-z]")  ));
+
 ui->comboBox_2->setModel(bi.afficher_2());
+QRegularExpression r1("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",QRegularExpression::CaseInsensitiveOption);
+ QRegExp mailREX ("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+         mailREX.setPatternSyntax(QRegExp::RegExp);
+
+    ui->nom->setValidator(new QRegularExpressionValidator(r1, this));
 QChart *chart = new QChart();
      chart=bi.stat();
     QChartView *chartview = new QChartView(chart,ui->widget);
@@ -45,7 +50,8 @@ void MainWindow::on_ajouter_clicked()
     QString num_voyageur=ui->voy->text();
     QString emplacement=ui->emp->text();
     QString classement=ui->comboBox->currentText();
-   Billet b (id_billet,classement,emplacement,num_vol,num_voyageur,nom);
+    QString mail=ui->mail->text();
+   Billet b (id_billet,classement,emplacement,num_vol,num_voyageur,nom,mail);
    bool test= b.ajouter();
        if(test)
        {
@@ -108,9 +114,9 @@ void MainWindow::on_modify_clicked()
       QString num_vol=ui->comboBox_2->currentText();
     QString num_voyageur=ui->voy->text();
     QString emplacement=ui->emp->text();
-
+ QString mail=ui->mail->text();
     QString classement=ui->comboBox->currentText();
-   Billet b (id_billet,classement,emplacement,num_vol,num_voyageur,nom);
+   Billet b (id_billet,classement,emplacement,num_vol,num_voyageur,nom,mail);
    if(b.modifier(id_billet))
    {
             QMessageBox::information(nullptr, QObject::tr("Modifier un billet"),
@@ -155,6 +161,9 @@ void MainWindow::on_modifier_clicked()
              ui->voy->setText(num_voyageur);
              QString id = ui->tableView->model()->index(index.row(), 3).data(Qt::DisplayRole).toString();
              ui->id->setText(id);
+             QString mail = ui->tableView->model()->index(index.row(), 6).data(Qt::DisplayRole).toString();
+             ui->mail->setText(mail);
+
    }
 
 
@@ -282,14 +291,15 @@ void MainWindow::on_pushButton_5_clicked()
                +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),2)).toString()
                +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),3)).toString()
                +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),4)).toString()
-               +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),5)).toString();
+               +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),5)).toString()
+             +" "+ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),6)).toString();
 
 
        using namespace qrcodegen;
          QrCode qr = QrCode::encodeText( text.toUtf8().data(), QrCode::Ecc::MEDIUM );
          qint32 sz = qr.getSize();
          QImage im(sz,sz, QImage::Format_RGB32);
-           QRgb black = qRgb(  0,  0,  0);
+           QRgb black = qRgb(0, 0, 0);
            QRgb white = qRgb(255,255,255);
          for (int y = 0; y < sz; y++)
            for (int x = 0; x < sz; x++)
@@ -300,3 +310,25 @@ void MainWindow::on_pushButton_5_clicked()
 
 
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+
+    QModelIndex index = ui->tableView->currentIndex();
+             QString id_billet = index.data(Qt::DisplayRole).toString();
+             QString nom = ui->tableView->model()->index(index.row(), 0).data(Qt::DisplayRole).toString();
+
+             QString num_vol = ui->tableView->model()->index(index.row(), 4).data(Qt::DisplayRole).toString();
+
+             QString classement = ui->tableView->model()->index(index.row(), 2).data(Qt::DisplayRole).toString();
+
+             QString emplacement = ui->tableView->model()->index(index.row(), 1).data(Qt::DisplayRole).toString();
+
+             QString num_voyageur = ui->tableView->model()->index(index.row(), 5).data(Qt::DisplayRole).toString();
+QString mail = ui->tableView->model()->index(index.row(), 6).data(Qt::DisplayRole).toString();
+             QString id = ui->tableView->model()->index(index.row(), 3).data(Qt::DisplayRole).toString();
+             QString text="id:  "+id +"              "+"nom:  "+nom+"                "+"classement:  "+classement+"               "+"emplacement:  "+emplacement+"               "+"numero vol:  "+num_vol+"                   "+"numero voyageur:  "+num_voyageur;
+            ui->textEdit->setPlainText(text);
+            ui->lineEdit_11->setText(mail);
+
+}

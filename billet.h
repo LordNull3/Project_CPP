@@ -9,14 +9,16 @@ class Billet
 public:
 
     Billet();
-    Billet(QString,QString,QString,QString,QString,QString);
+    Billet(QString,QString,QString,QString,QString,QString,QString);
     QString getid_billet();
     QString getemplacement();
     QString getnum_vol();
     QString getnum_voyageur();
+     QString getmail();
     QString getclassemen();
     void setid_billet(QString);
     void setemplacement(QString);
+     void setmail(QString);
     void setnum_vol(QString);
     void setclassement(QString);
     QString getnom();
@@ -36,7 +38,7 @@ public:
       QChart *stat();
 private:
  QString  emplacement ,num_vol , num_voyageur ;
- QString  id_billet,classement,nom ;
+ QString  id_billet,classement,nom,mail ;
 };
 
 #endif // BILLET_H
