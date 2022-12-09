@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>airport-terminal.jpg</file>
+        <file>asian-airport.jpg</file>
+        <file>employeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg</file>
+        <file>lh.jpg</file>
+        <file>plane-passing-by-sun-cloudy-day.jpg</file>
+        <file>planes-cgi.png</file>
+        <file>unknown.png</file>
+    </qresource>
+</RCC>
